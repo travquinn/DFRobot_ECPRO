@@ -24,7 +24,7 @@ CONFIG_SCHEMA = sensor.sensor_schema(
     cv.Required(CONF_ADS1115_MULTIPLEXER): cv.enum(ads1115.ADS1115_MULTIPLEXER_OPTIONS, upper=True),
     cv.Required(CONF_ADS1115_GAIN): cv.enum(ads1115.ADS1115_GAIN_OPTIONS, float=True),
     cv.Optional(CONF_TEMPERATURE, default=25.0): cv.float_,
-}).extend(cv.polling_component_schema('60s'))
+})
 
 async def to_code(config):
     var = cg.new_Pvariable(config[CONF_ID])
