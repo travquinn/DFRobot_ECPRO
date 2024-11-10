@@ -12,8 +12,8 @@ class DFRobotECProSensor : public sensor::Sensor, public PollingComponent {
   DFRobotECProSensor() : PollingComponent(15000) {}
 
   void set_ads1115(ads1115::ADS1115Component *ads1115) { ads1115_ = ads1115; }
-  void set_multiplexer(ads1115::ADS1115Multiplexer multiplexer) { multiplexer_ = multiplexer; }
-  void set_gain(ads1115::ADS1115Gain gain) { gain_ = gain; }
+  void set_ads1115_multiplexer(ads1115::ADS1115Multiplexer multiplexer) { multiplexer_ = multiplexer; }
+  void set_ads1115_gain(ads1115::ADS1115Gain gain) { gain_ = gain; }
   void set_temperature(float temperature) { temperature_ = temperature; }
 
   void setup() override {
