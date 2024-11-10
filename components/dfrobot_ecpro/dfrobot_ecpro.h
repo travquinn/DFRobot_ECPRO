@@ -14,12 +14,13 @@ class DFRobotECProSensor : public sensor::Sensor, public PollingComponent {
   void set_gain(ads1115::ADS1115Gain gain) { gain_ = gain; }
 
   void setup() override {
-    ecpro_.begin();
+    // Initialize the sensor
   }
 
   void update() override {
+    // Read the sensor and publish the state
     float voltage = ads1115_->request_measurement(multiplexer_, gain_);
-    float ec = ecpro_.readEC(voltage);
+    float ec = // Convert voltage to EC value using DFRobot_ECPRO library
     publish_state(ec);
   }
 
