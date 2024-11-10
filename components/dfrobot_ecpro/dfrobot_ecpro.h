@@ -17,7 +17,6 @@ class DFRobotECProSensor : public sensor::Sensor, public PollingComponent {
   void set_temperature(float temperature) { temperature_ = temperature; }
 
   void setup() override {
-    // Initialize the EC sensor
     ecpro_ = new DFRobot_ECPRO();
   }
 
