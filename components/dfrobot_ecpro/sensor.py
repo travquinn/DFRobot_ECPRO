@@ -1,7 +1,7 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import sensor, ads1115
-from esphome.const import CONF_ID, UNIT_MICROSIEMENS_PER_CENTIMETER, ICON_FLASH
+from esphome.const import CONF_ID, UNIT_MICROSIEMENS_PER_CENTIMETER, ICON_FLASH, CONF_TEMPERATURE
 
 DEPENDENCIES = ['ads1115']
 
@@ -22,6 +22,7 @@ CONFIG_SCHEMA = sensor.sensor_schema(
     cv.Required(CONF_ADS1115_ID): cv.use_id(ads1115.ADS1115Component),
     cv.Required(CONF_MULTIPLEXER): cv.enum(ads1115.ADS1115_MULTIPLEXER_OPTIONS, upper=True),
     cv.Required(CONF_GAIN): cv.enum(ads1115.ADS1115_GAIN_OPTIONS, float=True),
+    cv.Optional(CONF_TEMPERATURE, default=25.0): cv.float_,
 }).extend(cv.polling_component_schema('60s'))
 
 async def to_code(config):
@@ -33,3 +34,4 @@ async def to_code(config):
     cg.add(var.set_ads1115(ads))
     cg.add(var.set_multiplexer(config[CONF_MULTIPLEXER]))
     cg.add(var.set_gain(config[CONF_GAIN]))
+    cg.add(var.set_temperature(config[CONF_TEMPERATURE]))
