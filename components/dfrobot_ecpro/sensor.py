@@ -27,12 +27,12 @@ ADS1115_MULTIPLEXER_OPTIONS = {
 
 # Define the gain options
 ADS1115_GAIN_OPTIONS = {
-    "6.144": 0b000,
-    "4.096": 0b001,
-    "2.048": 0b010,
-    "1.024": 0b011,
-    "0.512": 0b100,
-    "0.256": 0b101,
+    "6.144V": 0b000,
+    "4.096V": 0b001,
+    "2.048V": 0b010,
+    "1.024V": 0b011,
+    "0.512V": 0b100,
+    "0.256V": 0b101,
 }
 
 CONFIG_SCHEMA = sensor.sensor_schema(
