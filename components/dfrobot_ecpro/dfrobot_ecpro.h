@@ -19,11 +19,11 @@ class DFRobotECProSensor : public sensor::Sensor, public PollingComponent {
     ecpro_ = new DFRobot_ECPRO();
   }
 
-  void update() override {
-    float voltage = ads1115_->request_measurement(multiplexer_, gain_);
-    float ec = ecpro_->getEC_us_cm(voltage, temperature_);
-    publish_state(ec);
-  }
+void update() override {
+  float voltage = ads1115_->request_measurement(multiplexer_, gain_, ads1115::ADS1115_RESOLUTION_16_BIT);
+  float ec = ecpro_->getEC_us_cm(voltage, temperature_);
+  publish_state(ec);
+}
 
  protected:
   DFRobot_ECPRO *ecpro_;
