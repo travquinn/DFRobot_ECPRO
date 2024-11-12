@@ -10,7 +10,6 @@
 
 #ifndef __DFRobot_ECPRO_H__
 #define __DFRobot_ECPRO_H__
-#endif
 
 #if ARDUINO >= 100
 #include "Arduino.h"
@@ -37,56 +36,63 @@ class DFRobot_ECPRO
     DFRobot_ECPRO();
     DFRobot_ECPRO(float calibration);
     ~DFRobot_ECPRO(){};
-/**
- * bref 获取的电导率电压值和温度电压值（带温度校准）
- * param voltage:adc获取的电压值
- * return 电导率
- */
+    /**
+     * @brief Get the EC value in us/cm (with temperature calibration)
+     * @param voltage: ADC voltage value
+     * @return EC value in us/cm
+     */
     float getEC_us_cm(float voltage);
 
-/**
- * bref 获取的电导率电压值和温度电压值（不带温度校准）
- * param voltage:adc获取的电压值
- * temperature 溶液温度
- * return 电导率
- */
+    /**
+     * @brief Get the EC value in us/cm (without temperature calibration)
+     * @param voltage: ADC voltage value
+     * @param temperature: Solution temperature
+     * @return EC value in us/cm
+     */
     float getEC_us_cm(float voltage, float temperature);
 
-/**
- * bref 设置校准值并在eeprom中永久保存
- * param calibration
- * return 是否成功
- */
+    /**
+     * @brief Set calibration value and save it permanently in EEPROM
+     * @param calibration: Calibration value
+     * @return Success or failure
+     */
     bool setCalibration(float calibration);
 
-/**
- * bref 获取校准值
- */
+    /**
+     * @brief Get calibration value
+     * @return Calibration value
+     */
     float getCalibration();
 
-/**
- * bref 校准（自带参考k值为1）
- */
+    /**
+     * @brief Calibrate (with built-in reference k value of 1)
+     * @param voltage: EC sensor output voltage
+     * @return Calibrated value
+     */
     float calibrate(float voltage);
 
-/**
- * bref 校准
- * param voltage ：电导率传感器的输出电压值
- *       reference：参考k值（0.5<k<1.5）
- */
+    /**
+     * @brief Calibrate
+     * @param voltage: EC sensor output voltage
+     * @param reference: Reference k value (0.5 < k < 1.5)
+     * @return Calibrated value
+     */
     float calibrate(float voltage, float reference); 
   private:
     float _kvalue;
 };
-
-#ifndef __DFRobot_ECPRO_PT1000_H__
-#define __DFRobot_ECPRO_PT1000_H__
-#endif
 
 class DFRobot_ECPRO_PT1000
 {
   public:
     DFRobot_ECPRO_PT1000(){};
     ~DFRobot_ECPRO_PT1000(){};
+    /**
+     * @brief Convert voltage to temperature in Celsius
+     * @param voltage: PT1000 sensor output voltage
+     * @return Temperature in Celsius
+     */
     float convVoltagetoTemperature_C(float voltage);
 };
+
+#endif // __DFRobot_ECPRO_H__
