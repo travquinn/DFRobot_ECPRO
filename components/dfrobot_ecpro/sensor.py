@@ -1,7 +1,7 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome.components import sensor
-from esphome.const import CONF_ID, UNIT_MICROSIEMENS_PER_CENTIMETER, ICON_FLASH
+from esphome.const import CONF_ID, UNIT_MICROSIEMENS_PER_CENTIMETER, ICON_FLASH, CONF_UPDATE_INTERVAL
 
 DEPENDENCIES = ['ads1115']
 
@@ -27,12 +27,12 @@ ADS1115_MULTIPLEXER_OPTIONS = {
 
 # Define the gain options
 ADS1115_GAIN_OPTIONS = {
-    "6.144": 0b000,
-    "4.096": 0b001,
-    "2.048": 0b010,
-    "1.024": 0b011,
-    "0.512": 0b100,
-    "0.256": 0b101,
+    6.144: 0b000,
+    4.096: 0b001,
+    2.048: 0b010,
+    1.024: 0b011,
+    0.512: 0b100,
+    0.256: 0b101,
 }
 
 CONFIG_SCHEMA = sensor.sensor_schema(
@@ -44,8 +44,9 @@ CONFIG_SCHEMA = sensor.sensor_schema(
     cv.GenerateID(): cv.declare_id(DFRobotECProSensor),
     cv.Required(CONF_ADS1115_ID): cv.use_id(cg.Component),
     cv.Required(CONF_ADS1115_MULTIPLEXER): cv.enum(ADS1115_MULTIPLEXER_OPTIONS, upper=True),
-    cv.Required(CONF_ADS1115_GAIN): cv.enum(ADS1115_GAIN_OPTIONS, float=True),
+    cv.Required(CONF_ADS1115_GAIN): cv.float_,
     cv.Optional(CONF_TEMPERATURE, default=25.0): cv.float_,
+    cv.Optional(CONF_UPDATE_INTERVAL, default="60s"): cv.update_interval,
 })
 
 async def to_code(config):
@@ -58,3 +59,4 @@ async def to_code(config):
     cg.add(var.set_ads1115_multiplexer(config[CONF_ADS1115_MULTIPLEXER]))
     cg.add(var.set_ads1115_gain(config[CONF_ADS1115_GAIN]))
     cg.add(var.set_temperature(config[CONF_TEMPERATURE]))
+    cg.add(var.set_update_interval(config[CONF_UPDATE_INTERVAL]))
